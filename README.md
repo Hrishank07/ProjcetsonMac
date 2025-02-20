@@ -16,10 +16,12 @@
 
 ## Projects
 
-### 1. [Projects On Time Series Analysis]:
+### 1. Projects On Time Series Analysis:
 - **Description**: These are a couple of projects that i have worked through in my course and then implemented them in my personal projects. Theres a final project based on NYC Taxi Data Analysis which involves a detailed EDA and Time Series Analysis considering various factors. Combining the data with the weather data and then predicting the future demand of the taxis. EDA consisted of the data cleaning, data visualization, feature engineering and then the model building. The language used was primarily R and then various libraries like ggplot2, dplyr, lubridate, forecast, tseries, etc. We implemented ARIMA, SARIMA, Holt-Winters, Prophet and LSTM models for the prediction as well as the forecasting.
 
 - **Tech Stack**: R, ggplot2, dplyr, lubridate, forecast, tseries, ARIMA, SARIMA, Holt-Winters, Prophet, LSTM
+
+### 2. Projects On Analysis
 
 
 
