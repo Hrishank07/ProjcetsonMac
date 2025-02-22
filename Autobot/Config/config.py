@@ -22,7 +22,7 @@ MODEL_CONFIGS = {
     ),
     ModelType.GEMINI: ModelConfig(
         name="Gemini",
-        api_url="https://aistudio.google.com/app/apikey",  # Example endpoint; update as required
+        api_url="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=GEMINI_API_KEY",  # Example endpoint; update as required
         api_key= GEMINI_API_KEY
     ),
     ModelType.DEEPSEEK: ModelConfig(
@@ -33,6 +33,7 @@ MODEL_CONFIGS = {
 }
 
 DEFAULT_MODEL = ModelType.CHATGPT
+
 
 # General settings (e.g., browser driver paths)
 CHROME_DRIVER_PATH = os.getenv('CHROME_DRIVER_PATH', '/path/to/chromedriver')

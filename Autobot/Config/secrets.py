@@ -7,7 +7,7 @@
 OPENAI_API_KEY = "your-openai-api-key-here"
 
 # Gemini API key
-GEMINI_API_KEY = "your-gemini-api-key-here"
+GEMINI_API_KEY = "AIzaSyC0B1q-yLVBJiX3YUTUkEDxWEl34vRzPRI"
 
 # Deepseek API key
 DEEPSEEK_API_KEY = "your-deepseek-api-key-here"
