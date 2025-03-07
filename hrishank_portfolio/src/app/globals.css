@@ -9,6 +9,8 @@
   
   body {
     @apply text-gray-900 bg-gray-50;
+    scroll-snap-type: y proximity;
+    overflow-y: auto;
   }
 }
 
@@ -21,14 +23,14 @@
 @import "tailwindcss";
 
 :root {
-  --primary-color: #B1DD8C;
+  --primary: #B1DD8C;
 }
 
 /* Dark mode styles */
 .dark {
-  --bg-color: #1a1a1a;
-  --card-bg: #2a2a2a;
-  --text-color: #ffffff;
+  --background: #0F0F0F;
+  --foreground: #FFFFFF;
+  color-scheme: dark;
 }
 
 /* Light mode styles */
@@ -39,25 +41,36 @@
 }
 
 body {
-  color: var(--text-color);
-  background: var(--bg-color);
+  @apply bg-white dark:bg-[#0F0F0F] text-gray-900 dark:text-gray-100;
   transition: background-color 0.3s ease;
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--card-bg);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
+  background: var(--primary);
   border-radius: 5px;
+  opacity: 0.7;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ac578;
+  background: #9ac76e;
+  opacity: 1;
+}
+
+.snap-start {
+  scroll-snap-align: start;
 }

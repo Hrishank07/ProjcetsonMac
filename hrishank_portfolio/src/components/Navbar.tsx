@@ -1,144 +1,131 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const isActive = (path: string) => pathname === path;
 
   const handleResumeDownload = () => {
-    const resumeUrl = '/assets/resume.pdf';
-    const link = document.createElement('a');
-    link.href = resumeUrl;
-    link.download = 'Hrishank_Chhatbar_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Logic to download resume
+    window.open('/assets/resume.pdf', '_blank');
   };
 
-  const navItems = [
-    { name: 'About', href: '/about' },
-    { name: 'Career', href: '/career' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Contact', href: '/contact' },
-  ];
-
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <header 
+      className="fixed top-0 left-0 w-full z-50 bg-[#0F0F0F] transition-all duration-300"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/" className="text-xl font-bold text-white">
               HC
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`${
-                  isActive(item.href)
-                    ? 'text-primary'
-                    : 'text-gray-900 dark:text-white hover:text-primary'
-                } transition-colors duration-200 font-medium`}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <button
-              onClick={handleResumeDownload}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
-            >
-              Resume
-              <svg
-                className="ml-2 -mr-1 h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-            </button>
-            <div className="flex items-center">
-              <ThemeToggle />
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center justify-center">
+            <nav className="flex space-x-8">
+              {['About', 'Career', 'Projects', 'Contact'].map((item) => (
+                <Link
+                  key={item}
+                  href={`/${item.toLowerCase()}`}
+                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 relative ${
+                    isActive(`/${item.toLowerCase()}`)
+                      ? 'text-primary'
+                      : 'text-gray-300 hover:text-primary'
+                  }`}
+                >
+                  {item}
+                  <span 
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-primary transform origin-bottom scale-x-0 transition-transform duration-300 ${
+                      isActive(`/${item.toLowerCase()}`) ? 'scale-x-100' : 'hover:scale-x-100'
+                    }`}
+                  ></span>
+                </Link>
+              ))}
+            </nav>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-4">
+          {/* Right side - Resume & Theme Toggle */}
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={handleResumeDownload}
+              className="hidden sm:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-105"
+            >
+              Resume
+            </button>
             <ThemeToggle />
+
+            {/* Mobile menu button */}
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-900 dark:text-white hover:text-primary focus:outline-none"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-primary focus:outline-none"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              {!isMobileMenuOpen ? (
+                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              ) : (
+                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
       </div>
 
       {/* Mobile menu */}
-      <div className="md:hidden" id="mobile-menu">
+      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-[#0F0F0F] shadow-lg`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {navItems.map((item) => (
+          {['About', 'Career', 'Projects', 'Contact'].map((item) => (
             <Link
-              key={item.name}
-              href={item.href}
-              className={`${
-                isActive(item.href)
+              key={item}
+              href={`/${item.toLowerCase()}`}
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isActive(`/${item.toLowerCase()}`)
                   ? 'text-primary'
-                  : 'text-gray-900 dark:text-white'
-              } block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors duration-200`}
+                  : 'text-gray-300 hover:text-primary'
+              }`}
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              {item.name}
+              {item}
             </Link>
           ))}
           <button
-            onClick={handleResumeDownload}
-            className="w-full mt-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
+            onClick={() => {
+              handleResumeDownload();
+              setIsMobileMenuOpen(false);
+            }}
+            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-primary"
           >
             Resume
-            <svg
-              className="ml-2 -mr-1 h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
-            </svg>
           </button>
         </div>
       </div>
-    </nav>
+    </header>
   );
 } 

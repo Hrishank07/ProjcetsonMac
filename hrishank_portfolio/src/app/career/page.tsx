@@ -85,78 +85,71 @@ export default function Career() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-[#0F0F0F] pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Career Journey
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Exploring my professional path through data analysis and engineering, where each role has contributed to my growth and expertise.
-          </p>
-        </div>
-
-        {/* Experience Tiles */}
-        <div className="space-y-16">
-          {experiences.map((exp, index) => (
-            <div
-              key={exp.company}
-              ref={(el) => (tileRefs.current[index] = el)}
-              className="opacity-0 translate-y-10 transform transition-all duration-700 ease-out"
-            >
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-                <div className="grid md:grid-cols-3 gap-6 p-8">
-                  {/* Left Column - Logo and Basic Info */}
-                  <div className="flex flex-col items-center md:items-start space-y-4">
-                    <div className="relative w-32 h-32 bg-white dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
-                      <Image
-                        src={exp.logo}
-                        alt={`${exp.company} logo`}
-                        width={100}
-                        height={100}
-                        className="object-contain"
-                      />
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+          Career Journey
+        </h1>
+        
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-primary/30 dark:bg-primary/20"></div>
+          
+          {/* Experience items */}
+          <div className="space-y-12">
+            {experiences.map((experience, index) => (
+              <div 
+                key={index}
+                ref={(el) => (tileRefs.current[index] = el)}
+                className={`relative flex flex-col md:flex-row ${
+                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                } opacity-0 translate-y-10 transition-all duration-700`}
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full bg-primary border-4 border-white dark:border-[#0F0F0F] z-10"></div>
+                
+                {/* Content */}
+                <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
+                  <div className="bg-white dark:bg-[#1A1A1A] p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{experience.role}</h3>
+                        <p className="text-primary font-medium">{experience.company}</p>
+                      </div>
+                      <div className="h-12 w-12 relative flex items-center justify-center bg-gray-100 dark:bg-[#2A2A2A] rounded-full">
+                        <span className="text-lg font-bold text-primary">{experience.company.substring(0, 2).toUpperCase()}</span>
+                      </div>
                     </div>
-                    <div className="text-center md:text-left">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                        {exp.company}
-                      </h3>
-                      <p className="text-primary font-medium">{exp.role}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        {exp.period}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {exp.location}
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {exp.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Column - Description */}
-                  <div className="md:col-span-2">
-                    <ul className="space-y-4">
-                      {exp.description.map((item, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 rounded-full bg-primary"></span>
-                          <p className="ml-4 text-gray-600 dark:text-gray-300">{item}</p>
-                        </li>
+                    <p className="text-gray-600 dark:text-gray-300 mb-2">{experience.period}</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{experience.location}</p>
+                    <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                      {experience.description.map((responsibility, idx) => (
+                        <li key={idx}>{responsibility}</li>
                       ))}
                     </ul>
+                    {experience.skills && (
+                      <div className="mt-4">
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Skills:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {experience.skills.map((skill) => (
+                            <span 
+                              key={skill} 
+                              className="px-3 py-1 text-xs bg-gray-100 dark:bg-[#2A2A2A] text-gray-700 dark:text-gray-300 rounded-full"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
+                
+                {/* Empty space for the other side */}
+                <div className="md:w-1/2"></div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

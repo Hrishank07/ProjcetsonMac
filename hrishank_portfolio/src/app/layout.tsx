@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "../components/Navbar";
-import { ThemeProvider } from "../context/ThemeContext";
+import './globals.css';
+import { Inter } from 'next/font/google';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { ThemeProvider } from '../context/ThemeContext';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: "Hrishank Chhatbar - Portfolio",
-  description: "Data Analyst and Engineering Management Student",
+export const metadata = {
+  title: 'Hrishank Chhatbar | Portfolio',
+  description: 'Data Analyst Intern (USC MEM \'25) passionate about transforming data into actionable insights',
 };
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
@@ -33,10 +33,11 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300`}>
+      <body className={inter.className}>
         <ThemeProvider>
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main className="pt-16">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
