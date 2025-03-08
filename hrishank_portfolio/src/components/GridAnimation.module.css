@@ -1,0 +1,171 @@
+.wrap {
+  width: 80vw;
+  height: 80vw;
+  transform: rotate(45deg);
+  position: absolute;
+  left: calc(50% - 40vw);
+  top: calc(50% - 40vw);
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  filter: blur(0.5px);
+  opacity: 0;
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+.square {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: appear 0.8s ease-out forwards;
+  animation-delay: calc(var(--index) * 0.03s);
+  --hue: calc(200 + var(--index) * 3);
+  --color: hsl(var(--hue), 80%, 70%);
+}
+
+.inner {
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--color);
+  box-shadow: 0 0 15px var(--color);
+  animation: pulse 4s ease-in-out infinite alternate;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.inner:hover {
+  opacity: 1;
+  box-shadow: 0 0 25px var(--color);
+}
+
+.square::before,
+.square::after,
+.inner::before,
+.inner::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.square::before,
+.inner::before {
+  animation: scaling1 var(--duration, 2s) ease-in-out infinite alternate;
+  transform: scaleY(0);
+}
+
+.square::after,
+.inner::after {
+  animation: scaling2 var(--duration, 2s) ease-in-out infinite alternate;
+  transform: scaleX(0);
+}
+
+.square::before,
+.inner::before {
+  box-shadow: 
+    inset -1px 0 0 var(--color),
+    -1px 0 0 var(--color),
+    inset 1px 0 0 var(--color),
+    1px 0 0 var(--color);
+}
+
+.square::after,
+.inner::after {
+  box-shadow: 
+    inset 0 1px 0 0 var(--color),
+    0 1px 0 0 var(--color),
+    inset 0 -1px 0 0 var(--color),
+    0 -1px 0 0 var(--color);
+}
+
+@keyframes scaling1 {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes scaling2 {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(45deg);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Add a subtle glow effect */
+.wrap::after {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle at center, rgba(100, 200, 255, 0.15), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  animation: glowPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+} 
