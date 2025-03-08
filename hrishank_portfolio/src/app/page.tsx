@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ProjectCard from '../components/ProjectCard';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 const featuredProjects = [
   {
@@ -90,7 +91,8 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-[#0F0F0F] overflow-x-hidden scroll-smooth">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-4 relative bg-white dark:bg-[#0F0F0F] snap-start">
-        <div className="text-center max-w-4xl mx-auto">
+        <AnimatedBackground />
+        <div className="text-center max-w-4xl mx-auto z-10">
           <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in">
             Hi, I'm Hrishank Chhatbar
           </h1>
