@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
+import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,12 +33,12 @@ export default function Navbar() {
 
   return (
     <header 
-      className="fixed top-0 left-0 w-full z-50 bg-[#0F0F0F] transition-all duration-300"
+      className={`fixed top-0 left-0 w-full z-50 bg-[#0F0F0F] transition-all duration-300 ${styles.navbar}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className={styles.logo}>
             <Link href="/" className="text-xl font-bold text-white">
               HC
             </Link>
@@ -45,7 +46,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center">
-            <nav className="flex space-x-8">
+            <nav className={styles.links}>
               {['About', 'Career', 'Projects', 'Contact'].map((item) => (
                 <Link
                   key={item}
@@ -69,12 +70,13 @@ export default function Navbar() {
 
           {/* Right side - Resume & Theme Toggle */}
           <div className="flex items-center space-x-4">
-            <button
+            <Link
+              href="/resume"
+              className={`hidden sm:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-105 ${styles.resume}`}
               onClick={handleResumeDownload}
-              className="hidden sm:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-105"
             >
               Resume
-            </button>
+            </Link>
             <ThemeToggle />
 
             {/* Mobile menu button */}
@@ -115,15 +117,16 @@ export default function Navbar() {
               {item}
             </Link>
           ))}
-          <button
+          <Link
+            href="/resume"
+            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-primary"
             onClick={() => {
               handleResumeDownload();
               setIsMobileMenuOpen(false);
             }}
-            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-primary"
           >
             Resume
-          </button>
+          </Link>
         </div>
       </div>
     </header>

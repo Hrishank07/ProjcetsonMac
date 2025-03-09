@@ -90,14 +90,43 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-white dark:bg-[#0F0F0F] overflow-x-hidden">
-      <BubbleBackground />
+    <main className="relative min-h-screen bg-black overflow-x-hidden">
+      <div className="fixed inset-0 z-0">
+        <GridAnimation />
+      </div>
+
+      {/* Floating Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between backdrop-blur-md bg-black/10 px-6 py-3 rounded-full border border-white/10">
+            <Link href="/" className="text-2xl font-bold text-white hover:text-primary transition-colors">
+              HC
+            </Link>
+            <div className="flex items-center gap-8">
+              {['About', 'Career', 'Projects', 'Contact'].map((item) => (
+                <Link
+                  key={item}
+                  href={`/${item.toLowerCase()}`}
+                  className="relative text-gray-300 hover:text-white transition-colors group py-1"
+                >
+                  <span className="relative z-10">{item}</span>
+                  <span className="absolute inset-x-0 -bottom-0.5 h-px bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                </Link>
+              ))}
+              <Link
+                href="/resume"
+                className="px-4 py-1.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-sm bg-black/20"
+              >
+                Resume
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4 relative bg-gradient-to-br from-black to-gray-900 snap-start overflow-hidden">
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <GridAnimation />
-          </div>
+        <section className="min-h-screen flex items-center justify-center px-4 relative snap-start">
           <div className="text-center max-w-4xl mx-auto z-20 relative">
             <div className="space-y-6 backdrop-blur-md bg-black/10 p-12 rounded-3xl border border-white/10 shadow-2xl hover:bg-black/20 transition-all duration-500">
               <h1 className="text-6xl font-bold text-white mb-4 animate-fade-in drop-shadow-2xl">
@@ -114,17 +143,6 @@ export default function Home() {
                 Learn More
               </button>
             </div>
-          </div>
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <svg 
-              className="w-6 h-6 text-gray-400 dark:text-gray-500 cursor-pointer" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-              onClick={() => aboutRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
           </div>
         </section>
 
