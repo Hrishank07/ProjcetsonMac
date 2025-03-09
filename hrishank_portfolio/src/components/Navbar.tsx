@@ -33,35 +33,47 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 w-full z-50 bg-[#0F0F0F] transition-all duration-300 ${styles.navbar}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className={styles.logo}>
-            <Link href="/" className="text-xl font-bold text-white">
+            <Link 
+              href="/" 
+              className={`text-2xl font-bold transition-colors ${
+                isScrolled 
+                  ? 'text-gray-900 dark:text-white hover:text-primary' 
+                  : 'text-gray-900 dark:text-white hover:text-primary backdrop-blur-sm bg-white/10 dark:bg-black/10 px-3 py-1 rounded-lg'
+              }`}
+              aria-label="Home"
+            >
               HC
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center">
-            <nav className={styles.links}>
+          <div className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
+            <nav className="flex items-center space-x-8">
               {['About', 'Career', 'Projects', 'Contact'].map((item) => (
                 <Link
                   key={item}
                   href={`/${item.toLowerCase()}`}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 relative ${
+                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 relative group ${
                     isActive(`/${item.toLowerCase()}`)
                       ? 'text-primary'
-                      : 'text-gray-300 hover:text-primary'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                   }`}
+                  aria-current={isActive(`/${item.toLowerCase()}`) ? 'page' : undefined}
                 >
                   {item}
                   <span 
-                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-primary transform origin-bottom scale-x-0 transition-transform duration-300 ${
-                      isActive(`/${item.toLowerCase()}`) ? 'scale-x-100' : 'hover:scale-x-100'
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-primary transform origin-left transition-transform duration-300 ${
+                      isActive(`/${item.toLowerCase()}`) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                     }`}
+                    aria-hidden="true"
                   ></span>
                 </Link>
               ))}
@@ -72,8 +84,9 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             <Link
               href="/resume"
-              className={`hidden sm:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-105 ${styles.resume}`}
+              className="hidden sm:inline-flex items-center px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-white dark:text-white rounded-full font-medium transition-all duration-300 transform hover:scale-105"
               onClick={handleResumeDownload}
+              aria-label="Download Resume"
             >
               Resume
             </Link>
@@ -82,8 +95,11 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-primary focus:outline-none"
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-primary"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label="Toggle menu"
             >
               <span className="sr-only">Open main menu</span>
               {!isMobileMenuOpen ? (
@@ -101,34 +117,44 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-[#0F0F0F] shadow-lg`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {['About', 'Career', 'Projects', 'Contact'].map((item) => (
+      {isMobileMenuOpen && (
+        <div 
+          className="md:hidden bg-white dark:bg-[#0F0F0F] border-t border-gray-200 dark:border-gray-800"
+          id="mobile-menu"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {['About', 'Career', 'Projects', 'Contact'].map((item) => (
+              <Link
+                key={item}
+                href={`/${item.toLowerCase()}`}
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  isActive(`/${item.toLowerCase()}`)
+                    ? 'text-primary bg-gray-50 dark:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                }`}
+                aria-current={isActive(`/${item.toLowerCase()}`) ? 'page' : undefined}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item}
+              </Link>
+            ))}
             <Link
-              key={item}
-              href={`/${item.toLowerCase()}`}
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isActive(`/${item.toLowerCase()}`)
-                  ? 'text-primary'
-                  : 'text-gray-300 hover:text-primary'
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
+              href="/resume"
+              className="block px-3 py-2 rounded-md text-base font-medium text-primary hover:bg-gray-50 dark:hover:bg-gray-800"
+              onClick={(e) => {
+                e.preventDefault();
+                handleResumeDownload();
+                setIsMobileMenuOpen(false);
+              }}
+              aria-label="Download Resume"
             >
-              {item}
+              Resume
             </Link>
-          ))}
-          <Link
-            href="/resume"
-            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-primary"
-            onClick={() => {
-              handleResumeDownload();
-              setIsMobileMenuOpen(false);
-            }}
-          >
-            Resume
-          </Link>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 } 

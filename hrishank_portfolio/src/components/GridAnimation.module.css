@@ -1,8 +1,8 @@
 .wrap {
   position: fixed;
   inset: 0;
-  background: linear-gradient(to bottom right, rgba(0,0,0,0.95), rgba(0,0,0,0.85));
-  z-index: -1;
+  background: transparent;
+  z-index: 0;
   overflow: hidden;
 }
 
@@ -13,13 +13,14 @@
   transform-origin: center;
   transition: all 0.5s ease;
   animation: float 20s infinite ease-in-out;
+  opacity: 0.6;
 }
 
 .inner {
   position: absolute;
   inset: 0;
   border: 1.5px solid;
-  border-color: rgba(var(--color), 0.2);
+  border-color: rgba(var(--color), 0.3);
   transform: rotate(45deg);
   animation: pulse 4s ease-in-out infinite;
   box-shadow: 
@@ -190,7 +191,7 @@
     transparent 70%
   );
   mix-blend-mode: screen;
-  animation: ambientGlow 10s infinite alternate;
+  pointer-events: none;
 }
 
 @keyframes ambientGlow {

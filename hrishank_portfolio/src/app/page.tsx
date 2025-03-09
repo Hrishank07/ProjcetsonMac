@@ -90,58 +90,42 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-black overflow-x-hidden">
+    <main className="relative min-h-screen bg-white dark:bg-[#0F0F0F] overflow-hidden">
       <div className="fixed inset-0 z-0">
         <GridAnimation />
       </div>
-
-      {/* Floating Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between backdrop-blur-md bg-black/10 px-6 py-3 rounded-full border border-white/10">
-            <Link href="/" className="text-2xl font-bold text-white hover:text-primary transition-colors">
-              HC
-            </Link>
-            <div className="flex items-center gap-8">
-              {['About', 'Career', 'Projects', 'Contact'].map((item) => (
-                <Link
-                  key={item}
-                  href={`/${item.toLowerCase()}`}
-                  className="relative text-gray-300 hover:text-white transition-colors group py-1"
-                >
-                  <span className="relative z-10">{item}</span>
-                  <span className="absolute inset-x-0 -bottom-0.5 h-px bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                </Link>
-              ))}
-              <Link
-                href="/resume"
-                className="px-4 py-1.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-sm bg-black/20"
-              >
-                Resume
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4 relative snap-start">
-          <div className="text-center max-w-4xl mx-auto z-20 relative">
-            <div className="space-y-6 backdrop-blur-md bg-black/10 p-12 rounded-3xl border border-white/10 shadow-2xl hover:bg-black/20 transition-all duration-500">
-              <h1 className="text-6xl font-bold text-white mb-4 animate-fade-in drop-shadow-2xl">
-                Hi, I'm Hrishank Chhatbar
-              </h1>
-              <p className="text-xl text-gray-200 mb-8 animate-fade-in drop-shadow-lg" style={{ animationDelay: '200ms' }}>
-                Data Analyst Intern (USC MEM '25) passionate about transforming data into actionable insights
-              </p>
-              <button
-                onClick={() => aboutRef.current?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-primary text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-all duration-300 animate-fade-in hover:shadow-lg transform hover:scale-105 backdrop-blur-sm bg-white/10"
-                style={{ animationDelay: '400ms' }}
+        <section className="relative min-h-screen flex items-center justify-center px-4">
+          <div className="text-center z-10 max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white animate-fade-in">
+              Hi, I&apos;m Hrishank Chhatbar
+            </h1>
+            <p className="mt-6 text-xl md:text-2xl text-gray-600 dark:text-gray-300 animate-fade-in-delay">
+              Data Analyst Intern (USC MEM &apos;25) passionate about transforming data into actionable insights
+            </p>
+            <div className="mt-10">
+              <Link
+                href="/about"
+                className="inline-flex items-center px-6 py-3 rounded-full text-lg font-medium text-white bg-primary hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
               >
                 Learn More
-              </button>
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
         </section>
