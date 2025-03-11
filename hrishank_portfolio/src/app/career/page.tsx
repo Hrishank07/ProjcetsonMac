@@ -15,45 +15,43 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    company: 'Ideas Revenue Solutions',
-    role: 'Data Analyst Intern',
-    period: 'May 2023 - Aug 2023',
-    location: 'Ahmedabad, India',
+    company: 'IdeaS Revenue Solutions',
+    role: 'Associate Software Engineer: G2 Casper Product',
+    period: 'Jan 2023 - Aug 2023',
+    location: 'Pune, India',
     description: [
-      'Developed and maintained ETL frameworks using Python and SQL to process 100K+ records daily, ensuring data accuracy and system reliability.',
-      'Created interactive Power BI dashboards for revenue analysis, reducing report generation time by 60% and improving decision-making.',
-      'Implemented data validation procedures and QA validation plans, reducing data errors by 40%.',
-      'Collaborated with cross-functional teams to gather requirements and translate them into technical specifications.'
+      'Collaborated with the R&D team in the United States to develop optimized rates for 3-star hotels and resorts through the G2 Casper product, conducting A/B testing and performing ad hoc regressions to refine pricing parameters and enhance decision-making accuracy.',
+      'Designed a robust big data collection and analytics framework using technologies like Hadoop and Spark, resulting in a 30% increase in actionable insights that directly informed rate optimization strategies for clients in the hospitality industry.',
+      'Automated the ad hoc regression process and streamlined the comparison of Excel workbooks using Python scripts and Postman API calls, significantly reducing manual intervention and improving data processing efficiency by 40%.',
+      'Created dynamic dashboards in Excel and Power BI, enhancing forecasting accuracy by 25% and facilitating a 20% reduction in planning cycle time, contributing to an estimated revenue growth of $80K.'
     ],
-    skills: ['Python', 'SQL', 'Power BI', 'Excel', 'ETL', 'Data Analysis'],
+    skills: ['Python', 'SQL', 'Power BI', 'Excel', 'ETL', 'Data Analysis', 'Hadoop', 'ETL Pipeline', 'Big Data', 'Ad-hoc Regression', 'A/B Testing'],
     logo: '/assets/companies/ideas-revenue.png'
   },
   {
     company: 'RWTH International Academy',
     role: 'Data Analyst Intern',
-    period: 'Jan 2023 - Apr 2023',
-    location: 'Aachen, Germany',
+    period: 'Oct 2022 - Dec 2022',
+    location: 'Pune, India',
     description: [
-      'Led data analysis projects using Python and SQL to optimize student enrollment processes.',
-      'Developed automated reporting systems that reduced manual work by 50%.',
-      'Created visualization dashboards using Tableau for tracking key performance metrics.',
-      'Collaborated with international teams to implement data-driven solutions.'
+      'Analyzed sensor and telematics data from logistics trucks using Python, SQL, and Scikit-learn for data extraction and processing, applying statistical testing to identify trends and outliers, which improved predictive analytics and reduced delivery time variance by 15%.',
+      'Built predictive time series models using techniques (NAIVE and SNAIVE), optimizing delivery routes by factoring in traffic patterns, fuel efficiency, and driver relaxation schedules and implementing optimized routing strategies to improve service efficiency.',
+      'Additionally, I designed data models to enhance logistics operations, increasing delivery efficiency by 25%, and developed custom Power BI dashboards to present real-time data to leadership, translating technical analysis into clear business recommendations.'
     ],
-    skills: ['Python', 'SQL', 'Tableau', 'Data Analysis', 'Process Optimization'],
+    skills: ['Python', 'SQL', 'Tableau', 'Power BI', 'Data Analysis', 'Process Optimization', 'Time Series Analysis', 'Forecasting', 'Data Modeling'],
     logo: '/assets/companies/rwth.png'
   },
   {
     company: 'Volkswagen Group Technology Solutions',
     role: 'Data Analyst Intern',
-    period: 'May 2022 - Dec 2022',
+    period: 'Apr 2022 - Oct 2022',
     location: 'Pune, India',
     description: [
-      'Analyzed large datasets using SQL and Python to identify process improvement opportunities.',
-      'Built and maintained data pipelines for efficient data processing and analysis.',
-      'Created comprehensive reports and dashboards for stakeholder communication.',
-      'Participated in agile development processes and sprint planning.'
+      'Developed and implemented automation packages using Python and Java to automate the extraction of critical data from foreign-language invoices, leveraging Azure Form Cognitive Services for OCR and Automation Anywhere 360 (AA360), increasing data accuracy and operational efficiency by 30%, which helped scale operations across multiple regions and improve overall business performance.',
+      'Designed reusable components and standardized business logic fields within the AA360 platform, leveraging the Gradle development environment to streamline integration and deployment across teams, which reduced development time by 20%, improved team collaboration, and supported faster rollout of new business solutions to meet client needs.',
+      'Enhanced data extraction capabilities by significantly reducing manual efforts, resulting in a 25% increase in productivity and improved operational workflows, ultimately leading to better resource allocation and cost savings for the organization.'
     ],
-    skills: ['Python', 'SQL', 'Data Analysis', 'Agile', 'Process Optimization'],
+    skills: ['Python', 'SQL', 'Data Analysis', 'Agile', 'Process Optimization', 'Azure Form Cognitive Services', 'Automation Anywhere 360', 'Gradle', 'Data Extraction', 'Data Processing'],
     logo: '/assets/companies/volkswagen.png'
   }
 ];

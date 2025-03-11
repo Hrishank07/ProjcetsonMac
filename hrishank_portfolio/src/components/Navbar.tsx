@@ -6,11 +6,24 @@ import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import styles from './Navbar.module.css';
 
+/**
+ * Navbar Component
+ * 
+ * Responsive navigation bar that changes appearance on scroll.
+ * Features:
+ * - Logo/home link
+ * - Navigation links
+ * - Resume download button
+ * - Theme toggle
+ * - Mobile menu with animations
+ */
 export default function Navbar() {
+  // State for scroll detection and mobile menu
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Effect to handle scroll events
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -24,11 +37,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Helper function to determine active link
   const isActive = (path: string) => pathname === path;
 
-  const handleResumeDownload = () => {
-    // Logic to download resume
-    window.open('/assets/resume.pdf', '_blank');
+  // Handler for resume download
+  const handleResumeDownload = (e?: React.MouseEvent) => {
+    e?.preventDefault(); // Prevent default link behavior
+    const link = document.createElement('a');
+    link.href = '/assets/HrishankC_Resume.pdf';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.click();
   };
 
   return (
@@ -39,7 +58,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo/Home Link */}
           <div className={styles.logo}>
             <Link 
               href="/" 
@@ -78,6 +97,7 @@ export default function Navbar() {
 
           {/* Right side - Resume & Theme Toggle */}
           <div className="flex items-center space-x-4">
+            {/* Resume Button */}
             <Link
               href="/resume"
               className="hidden sm:inline-flex items-center px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-white dark:text-white rounded-full font-medium transition-all duration-300 transform hover:scale-105"
@@ -86,71 +106,79 @@ export default function Navbar() {
             >
               Resume
             </Link>
+            
+            {/* Theme Toggle Button */}
             <ThemeToggle />
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Button */}
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary focus:outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
-              aria-label="Toggle menu"
+              aria-label="Toggle mobile menu"
             >
               <span className="sr-only">Open main menu</span>
-              {!isMobileMenuOpen ? (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              ) : (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              )}
+              <div className="relative w-6 h-6">
+                <span
+                  className={`absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+                    isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'
+                  }`}
+                ></span>
+                <span
+                  className={`absolute h-0.5 bg-current transform transition-all duration-300 ease-in-out ${
+                    isMobileMenuOpen ? 'w-0 opacity-0' : 'w-6 opacity-100'
+                  }`}
+                ></span>
+                <span
+                  className={`absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${
+                    isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'
+                  }`}
+                ></span>
+              </div>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div 
-          className="md:hidden bg-white dark:bg-[#0F0F0F] border-t border-gray-200 dark:border-gray-800"
-          id="mobile-menu"
-          role="navigation"
-          aria-label="Mobile navigation"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {['About', 'Career', 'Projects', 'Contact'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  isActive(`/${item.toLowerCase()}`)
-                    ? 'text-primary bg-gray-50 dark:bg-gray-800'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
-                }`}
-                aria-current={isActive(`/${item.toLowerCase()}`) ? 'page' : undefined}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item}
-              </Link>
-            ))}
+      {/* Mobile Menu (Dropdown) */}
+      <div
+        id="mobile-menu"
+        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+          isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div className={`px-4 pt-2 pb-4 space-y-1 bg-white/90 dark:bg-[#0F0F0F]/90 backdrop-blur-md ${styles.mobileNav}`}>
+          {['About', 'Career', 'Projects', 'Contact'].map((item) => (
             <Link
-              href="/resume"
-              className="block px-3 py-2 rounded-md text-base font-medium text-primary hover:bg-gray-50 dark:hover:bg-gray-800"
-              onClick={(e) => {
-                e.preventDefault();
-                handleResumeDownload();
-                setIsMobileMenuOpen(false);
-              }}
-              aria-label="Download Resume"
+              key={item}
+              href={`/${item.toLowerCase()}`}
+              className={`block px-4 py-3 text-base font-medium rounded-md transition-all duration-300 ${
+                isActive(`/${item.toLowerCase()}`)
+                  ? 'text-primary bg-primary/10'
+                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-current={isActive(`/${item.toLowerCase()}`) ? 'page' : undefined}
             >
-              Resume
+              {item}
             </Link>
-          </div>
+          ))}
+          <Link
+            href="/resume"
+            className="block px-4 py-3 text-base font-medium text-primary hover:bg-primary/10 rounded-md transition-all duration-300"
+            onClick={(e) => {
+              e.preventDefault();
+              handleResumeDownload();
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            Resume
+          </Link>
         </div>
-      )}
+      </div>
     </header>
   );
 } 

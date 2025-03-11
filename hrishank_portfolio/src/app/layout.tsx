@@ -34,7 +34,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ClientThemeProvider>
           <Navbar />
           <main className="pt-16">{children}</main>

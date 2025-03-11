@@ -3,26 +3,12 @@
 import { useEffect, useRef } from 'react';
 import ProjectCard from '../../components/ProjectCard';
 
-const projects = [
-  {
-    title: 'Project 1',
-    description: 'A full-stack web application built with React and Node.js.',
-    imageUrl: '/project1.jpg',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    projectUrl: 'https://project1.com',
-    githubUrl: 'https://github.com/yourusername/project1',
-  },
-  {
-    title: 'Project 2',
-    description: 'A responsive e-commerce platform with modern UI/UX.',
-    imageUrl: '/project2.jpg',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe'],
-    projectUrl: 'https://project2.com',
-    githubUrl: 'https://github.com/yourusername/project2',
-  },
-  // Add more projects here
-];
-
+/**
+ * Projects Page Component
+ * 
+ * This page displays a collection of projects with a "Coming Soon" message.
+ * In future versions, this will be populated with actual projects.
+ */
 export default function Projects() {
   const projectRefs = useRef([]);
 
@@ -33,21 +19,14 @@ export default function Projects() {
           My Projects
         </h1>
         
-        <div className="bg-gradient-to-b from-transparent via-white/50 to-primary/5 dark:via-[#1A1A1A]/50 dark:to-primary/5 rounded-xl p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                ref={(el) => {
-                  projectRefs.current[index] = el;
-                }}
-                className="opacity-0 translate-y-10 transition-all duration-700"
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <ProjectCard {...project} />
-              </div>
-            ))}
-          </div>
+        {/* Coming Soon Message */}
+        <div className="bg-gradient-to-b from-transparent via-white/50 to-primary/5 dark:via-[#1A1A1A]/50 dark:to-primary/5 rounded-xl p-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 animate-pulse">
+            Coming Soon
+          </h2>
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+            I'm currently working on adding my portfolio projects. Check back soon to see my latest work!
+          </p>
         </div>
       </div>
     </div>
