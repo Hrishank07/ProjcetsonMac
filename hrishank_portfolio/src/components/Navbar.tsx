@@ -43,11 +43,7 @@ export default function Navbar() {
           <div className={styles.logo}>
             <Link 
               href="/" 
-              className={`text-2xl font-bold transition-colors ${
-                isScrolled 
-                  ? 'text-gray-900 dark:text-white hover:text-primary' 
-                  : 'text-gray-900 dark:text-white hover:text-primary backdrop-blur-sm bg-white/10 dark:bg-black/10 px-3 py-1 rounded-lg'
-              }`}
+              className="hover:text-primary"
               aria-label="Home"
             >
               HC

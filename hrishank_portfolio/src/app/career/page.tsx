@@ -85,13 +85,13 @@ export default function Career() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0F0F0F] pt-20">
+    <div className="min-h-screen bg-gradient-to-b from-white via-white to-primary/5 dark:from-[#0F0F0F] dark:via-[#0F0F0F] dark:to-primary/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Career Journey
         </h1>
         
-        <div className="relative">
+        <div className="relative bg-gradient-to-b from-transparent via-white/50 to-primary/5 dark:via-[#1A1A1A]/50 dark:to-primary/5 rounded-xl p-6">
           {/* Timeline line */}
           <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-primary/30 dark:bg-primary/20"></div>
           
@@ -100,7 +100,9 @@ export default function Career() {
             {experiences.map((experience, index) => (
               <div 
                 key={index}
-                ref={(el) => (tileRefs.current[index] = el)}
+                ref={(el) => {
+                  tileRefs.current[index] = el;
+                }}
                 className={`relative flex flex-col md:flex-row ${
                   index % 2 === 0 ? 'md:flex-row-reverse' : ''
                 } opacity-0 translate-y-10 transition-all duration-700`}
@@ -110,7 +112,7 @@ export default function Career() {
                 
                 {/* Content */}
                 <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
-                  <div className="bg-white dark:bg-[#1A1A1A] p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                  <div className="bg-white/50 dark:bg-[#1A1A1A]/50 backdrop-blur-sm p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-primary/10">
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 dark:text-white">{experience.role}</h3>
