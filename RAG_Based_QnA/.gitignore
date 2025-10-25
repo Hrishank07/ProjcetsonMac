@@ -1,3 +1,9 @@
+# Mac system files
 .DS_Store
-../*
+**/.DS_Store
+
+# Ignore everything in parent directory
+../*/
+
+# Don't ignore the current project directory
 !../RAG_Based_QnA/
